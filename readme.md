@@ -34,7 +34,7 @@ If you haven't cloned the repository yet, do so with:
 
 ```bash
 git clone https://github.com/AnnaGoralewicz/Unitconverter.git
-cd your-repo
+cd Unitconverter
 ```
 
 ### Build the project
@@ -42,7 +42,7 @@ cd your-repo
 To build the project, use the following Gradle command:
 
 ```bash
-./gradlew build 
+./gradlew bootJar 
 ```
 
 This will compile the project, run the tests, and package the application into an executable JAR file located in the `build/libs/` directory.
@@ -52,13 +52,15 @@ This will compile the project, run the tests, and package the application into a
 After building the project, you can run the Spring Boot application using:
 
 ```bash
-./gradlew bootRun
-```
+java -jar build/libs/unitconverter-<xxx>-SNAPSHOT.jar
 
-Alternatively, if you have already built the project and want to run the JAR directly:
+```
+Pleas change the <xxx> with the right version number
+
+Alternativly it is also posible to run the project directly with gradle.
 
 ```bash
-java -jar build/libs/your-app-name-version.jar
+./gradlew bootRun
 ```
 
 ### Running tests
@@ -79,6 +81,7 @@ You can configure application settings in the `src/main/resources/application.pr
 server.port=8080
 ```
 
+
 ## Useful Gradle Commands
 
 - `./gradlew build` – Builds the project and runs tests.
@@ -93,3 +96,11 @@ server.port=8080
 3. Commit your changes (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature-branch`).
 5. Create a new Pull Request.
+
+# API
+
+the API is documented in the open-api standard by default the swagger is enabled.
+Swagger-UI can be viewed via
+
+http://localhost:8080/swagger-ui/index.html#/
+
