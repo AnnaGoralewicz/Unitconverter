@@ -3,6 +3,7 @@ package org.unitconverter.model;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.unitconverter.model.distance.DistanceConverter;
+import org.unitconverter.model.distance.TimeConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class UnitConverter {
 
     private final List<ConverterInterface> unitGroups = List.of(
             new DistanceConverter()
+            ,new TimeConverter()
     );
     public UnitConverter()
     {

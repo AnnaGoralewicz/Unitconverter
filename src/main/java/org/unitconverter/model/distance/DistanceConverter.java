@@ -29,9 +29,9 @@ public class DistanceConverter implements ConverterInterface {
 
     @Override
     public Unit convert(Unit from, String to) {
-        if (sIUnitSuffix.stream().anyMatch(suf -> from.unit().endsWith(suf)))
+        if (sIUnitSuffix.stream().anyMatch(u -> from.unit().endsWith(u)))
         {
-            log.info("found metric unit {}",from.unit());
+
 
             return engineeringNotation.convert(from,new Unit(0,to,from.type())).orElseThrow();
 
