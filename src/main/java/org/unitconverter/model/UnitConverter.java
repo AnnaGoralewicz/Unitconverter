@@ -1,42 +1,50 @@
 package org.unitconverter.model;
 
+import com.digidemic.unitof.UnitOf;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.unitconverter.model.distance.DistanceConverter;
-import org.unitconverter.model.distance.TimeConverter;
 
-import java.util.ArrayList;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-@Component
 @Slf4j
-
+@Component
 public class UnitConverter {
 
-    private final List<ConverterInterface> unitGroups = List.of(
-            new DistanceConverter()
-            ,new TimeConverter()
-    );
+
+    Map<String,Class> groups;
+
     public UnitConverter()
     {
-        log.info("load units");
 
 
+        log.info("init groups");
+
+
+        groups=Arrays.stream(UnitOf.class.getClasses())
+                .collect(Collectors
+                        .toMap(Class::getSimpleName, v -> v));
 
     }
 
-    public List<String> getInstalledConverters()
+    public Set<String> groups()
     {
-        return unitGroups.stream().map(ConverterInterface::getGroupName).toList();
+        return  groups.keySet();
     }
 
-    public Optional<ConverterInterface> getConverterByGroup(String group)
+    public List<String> units(String group)
     {
-        return unitGroups.stream().filter( ug-> ug.getGroupName().compareToIgnoreCase(group)==0).findAny();
+        return Arrays.stream(groups.get(group).getMethods())
+                .map(Method::getName)
+                .filter(m -> m.startsWith("from"))
+                .map(m-> m.substring(4))
+                .toList();
+
 
     }
-
-
 
 }

@@ -3,10 +3,7 @@ package org.unitconverter.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.unitconverter.model.ConverterType;
-import org.unitconverter.model.Unit;
 import org.unitconverter.model.UnitConverter;
-import org.unitconverter.model.UnitGroup;
 
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class UnityRestController {
     @GetMapping("/groups")
     public GroupsDTO getConverterGroups(){
 
-     return new GroupsDTO(unitConverter.getInstalledConverters());
+     return new GroupsDTO(unitConverter.groups().stream().toList());
 
     }
 
@@ -31,9 +28,7 @@ public class UnityRestController {
     @GetMapping("/{group}/units")
     public UnitsDTO getUnitsByGroup(@PathVariable String group){
 
-        return new UnitsDTO(group,unitConverter.getConverterByGroup(group)
-                .orElseThrow(UnitConverterException::new)
-                .getUnits());
+        return new UnitsDTO(group,unitConverter.units(group));
 
     }
     @Operation(summary = """
@@ -47,11 +42,9 @@ public class UnityRestController {
                                         @RequestParam double value,@RequestParam String unit,
                                         @RequestParam String toUnit){
 
-        var from = new Unit(value,unit, ConverterType.Distance);
-        var result=unitConverter.getConverterByGroup(group)
-                .orElseThrow(UnitConverterException::new).convert(from,toUnit);
 
-        return new ResultDTO(result.value(),result.unit());
+
+        return new ResultDTO(3,"e");
 
 
 
