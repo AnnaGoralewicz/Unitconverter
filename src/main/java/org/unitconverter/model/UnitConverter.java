@@ -23,7 +23,6 @@ public class UnitConverter {
     Map<String,Class> groups;
     Map<String,ConverterMethod> converterMethods;
 
-
     public UnitConverter()
     {
 
