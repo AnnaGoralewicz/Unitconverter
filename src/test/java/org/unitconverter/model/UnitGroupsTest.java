@@ -7,11 +7,13 @@ import org.junit.jupiter.api.Test;
 class UnitGroupsTest {
 
     @Test
-    public void testGetGroups()
+    public void testArea()
     {
         var gr=new UnitConverter();
 
-        gr.groups().forEach(g -> log.info(g));
+        var result = gr.convert("Area",20,"SquareMeters","SquareCentimeters");
+
+        org.junit.jupiter.api.Assertions.assertEquals(200000,result);
 
     }
 }
