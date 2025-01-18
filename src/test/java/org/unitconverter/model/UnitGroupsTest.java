@@ -11,9 +11,9 @@ class UnitGroupsTest {
     {
         var gr=new UnitConverter();
 
-        var result = gr.convert("Area",20,"SquareMeters","SquareCentimeters");
+        var result = gr.convert("Area","20","SquareMeters","SquareCentimeters");
 
-        org.junit.jupiter.api.Assertions.assertEquals(200000,result);
+        org.junit.jupiter.api.Assertions.assertEquals("200000.0",result);
 
     }
 }

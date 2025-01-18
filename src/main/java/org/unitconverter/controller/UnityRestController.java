@@ -38,8 +38,8 @@ public class UnityRestController {
             the unit is a string and can be retrieved by the other endpoints.
             """)
     @GetMapping("/{group}/convert")
-    public ResultDTO getUnitsByGroup(@PathVariable String group,
-                                        @RequestParam double value,@RequestParam String unit,
+    public ResultDTO convert(@PathVariable String group,
+                                        @RequestParam String value,@RequestParam String unit,
                                         @RequestParam String toUnit){
 
 

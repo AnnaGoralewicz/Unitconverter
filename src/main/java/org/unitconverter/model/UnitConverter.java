@@ -83,7 +83,7 @@ public class UnitConverter {
                 .toList();
     }
 
-    public double convert(String group, double value , String from , String to)
+    public String convert(String group, String value , String from , String to)
     {
         var converter=converterMethods.get(group);
 
@@ -96,14 +96,17 @@ public class UnitConverter {
                 .findFirst()
                 .orElseThrow();
 
-
-        var t = new UnitOf.Area ();
-        t.fromAcres(23).toSquareFeet();
+        log.info(Arrays.stream(fromMethod.getParameterTypes()).findFirst().orElseThrow().getSimpleName());
 
         try {
-            var fromObjectConverter =fromMethod.invoke(converter.instance,value);
-            var result = (Double) toMethod.invoke(fromObjectConverter);
-            return  result;
+            var fromObjectConverter=switch (Arrays.stream(fromMethod.getParameterTypes()).findFirst().orElseThrow().getSimpleName()){
+                case "double" -> fromMethod.invoke(converter.instance,Double.valueOf(value));
+                case "integer" -> fromMethod.invoke(converter.instance,Integer.valueOf(value));
+                default ->  fromMethod.invoke(converter.instance,value);
+            };
+
+            return toMethod.invoke(fromObjectConverter).toString();
+
         } catch (IllegalAccessException | InvocationTargetException e) {
             log.warn("cant invoke converter",e);
             throw new RuntimeException(e);

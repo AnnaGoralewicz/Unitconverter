@@ -1,4 +1,4 @@
 package org.unitconverter.controller;
 
-public record ResultDTO(double result, String unit) {
+public record ResultDTO(String result, String unit) {
 }
